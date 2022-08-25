@@ -1,13 +1,12 @@
-
 local cfg = {}
 
 -- mysql credentials
 cfg.db = {
-  driver = "oxmysql",
-  host = "127.0.0.1",
-  database = "vRP",
-  user = "vRP",
-  password = ""
+    driver = "oxmysql",
+    host = "127.0.0.1",
+    database = "vRP",
+    user = "vRP",
+    password = ""
 }
 
 cfg.server_id = "main" -- identify the server (ex: in database)
@@ -30,9 +29,7 @@ cfg.lang = "en"
 cfg.log_level = 0 -- maximum verbose level for logs, -1 may disable logs and 1000 may print all logs
 
 -- this list of resources is auto started after starting vrp
-cfg.moduals = {
-	-- database should be first
-	"vrp_oxmysql"
-}
+cfg.moduals = { -- database should be first
+"vrp_oxmysql"}
 
 return cfg

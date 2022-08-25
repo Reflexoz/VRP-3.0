@@ -1,7 +1,8 @@
 -- https://github.com/ImagicTheCat/vRP
 -- MIT license (see LICENSE or vrp/vRPShared.lua)
-
-if not vRP.modules.gui then return end
+if not vRP.modules.gui then
+    return
+end
 
 local IDManager = module("vrp", "lib/IDManager")
 local htmlEntities = module("vrp", "lib/htmlEntities")
@@ -12,11 +13,11 @@ local lang = vRP.lang
 local Menu = class("Menu", EventDispatcher)
 
 function Menu:__construct(user, name, data)
-  EventDispatcher.__construct(self)
+    EventDispatcher.__construct(self)
 
-  self.user = user
-  self.name = name
-  self.data = data -- build data 
+    self.user = user
+    self.name = name
+    self.data = data -- build data 
 end
 
 -- dispatcher events:
@@ -24,61 +25,61 @@ end
 --- remove(menu)
 --- select(menu, id)
 function Menu:listen(name, callback)
-  if name == "select" then
-    if not self.event_listeners["select"] then
-      if self.user:getMenu() == self then -- is current menu
-        vRP.EXT.GUI.remote._setMenuSelectEvent(self.user.source, true)
-      end
+    if name == "select" then
+        if not self.event_listeners["select"] then
+            if self.user:getMenu() == self then -- is current menu
+                vRP.EXT.GUI.remote._setMenuSelectEvent(self.user.source, true)
+            end
+        end
     end
-  end
 
-  EventDispatcher.listen(self, name, callback)
+    EventDispatcher.listen(self, name, callback)
 end
 
 function Menu:initialize()
-  self.title = htmlEntities.encode("<"..self.name..">")
-  self.options = {}
-  self.css = {} -- {.header_color}
-  self.closed = false
+    self.title = htmlEntities.encode("<" .. self.name .. ">")
+    self.options = {}
+    self.css = {} -- {.header_color}
+    self.closed = false
 end
 
 function Menu:serializeNet()
-  -- prepare network data
-  local data = {
-    options = {},
-    title = self.title,
-    css = self.css,
-    select_event = (self.event_listeners["select"] ~= nil)
-  }
+    -- prepare network data
+    local data = {
+        options = {},
+        title = self.title,
+        css = self.css,
+        select_event = (self.event_listeners["select"] ~= nil)
+    }
 
-  -- titles
-  for k,v in pairs(self.options) do
-    data.options[k] = {v[1], v[3]} -- title, description
-  end
+    -- titles
+    for k, v in pairs(self.options) do
+        data.options[k] = {v[1], v[3]} -- title, description
+    end
 
-  return data
+    return data
 end
 
 function Menu:triggerClose()
-  if not self.closed then
-    self.closed = true
+    if not self.closed then
+        self.closed = true
 
-    -- trigger close event
-    self:triggerEvent("close", self)
-  end
+        -- trigger close event
+        self:triggerEvent("close", self)
+    end
 end
 
 function Menu:triggerSelect(id)
-  if self.options[id] then
-    self:triggerEvent("select", self, id)
-  end
+    if self.options[id] then
+        self:triggerEvent("select", self, id)
+    end
 end
 
 function Menu:triggerOption(id, mod)
-  local option = self.options[id]
-  if option and option[2] then
-    option[2](self, option[4], mod, id)
-  end
+    local option = self.options[id]
+    if option and option[2] then
+        option[2](self, option[4], mod, id)
+    end
 end
 
 -- update menu option
@@ -86,15 +87,19 @@ end
 -- description: (optional) as Menu:addOption
 -- will trigger client update if current menu
 function Menu:updateOption(id, title, description)
-  local option = self.options[id]
-  if option then
-    if title then option[1] = title end
-    if description then option[3] = description end
+    local option = self.options[id]
+    if option then
+        if title then
+            option[1] = title
+        end
+        if description then
+            option[3] = description
+        end
 
-    if self.user:getMenu() == self then -- current menu
-      vRP.EXT.GUI.remote._updateMenuOption(self.user.source, id, title, description)
+        if self.user:getMenu() == self then -- current menu
+            vRP.EXT.GUI.remote._updateMenuOption(self.user.source, id, title, description)
+        end
     end
-  end
 end
 
 -- add option
@@ -110,11 +115,11 @@ end
 -- value: (optional) option value, can be anything, option index by default
 -- index: (optional) by default the option is added at the end, but an index can be used to insert the option
 function Menu:addOption(title, action, description, value, index)
-  if index then
-    table.insert(self.options, index, {title, action, description, value or #self.options+1})
-  else
-    table.insert(self.options, {title, action, description, value or #self.options+1})
-  end
+    if index then
+        table.insert(self.options, index, {title, action, description, value or #self.options + 1})
+    else
+        table.insert(self.options, {title, action, description, value or #self.options + 1})
+    end
 end
 
 -- Extension
@@ -126,104 +131,106 @@ local GUI = class("GUI", vRP.Extension)
 GUI.User = class("User")
 
 function GUI.User:__construct()
-  self.menu_stack = {} -- stack of menus
-  self.request_ids = IDManager()
-  self.requests = {}
+    self.menu_stack = {} -- stack of menus
+    self.request_ids = IDManager()
+    self.requests = {}
 end
 
 -- return current menu or nil
 function GUI.User:getMenu()
-  local size = #self.menu_stack 
-  if size > 0 then
-    return self.menu_stack[size]
-  end
+    local size = #self.menu_stack
+    if size > 0 then
+        return self.menu_stack[size]
+    end
 end
 
 -- open menu (build and open menu)
 -- data: (optional) menu build data 
 -- return menu
 function GUI.User:openMenu(name, data)
-  local menu = Menu(self, name, data or {})
+    local menu = Menu(self, name, data or {})
 
-  -- build menu
-  menu:initialize()
-  vRP.EXT.GUI:buildMenu(menu)
+    -- build menu
+    menu:initialize()
+    vRP.EXT.GUI:buildMenu(menu)
 
-  -- add to stack, mark as current
-  table.insert(self.menu_stack, menu)
-  menu.stack_index = #self.menu_stack
+    -- add to stack, mark as current
+    table.insert(self.menu_stack, menu)
+    menu.stack_index = #self.menu_stack
 
-  -- open client menu
-  vRP.EXT.GUI.remote._openMenu(self.source, menu:serializeNet())
+    -- open client menu
+    vRP.EXT.GUI.remote._openMenu(self.source, menu:serializeNet())
 
-  -- trigger close on previous menu if exists
-  local size = #self.menu_stack
-  if size > 1 then
-    local prev_menu = self.menu_stack[size-1]
-    prev_menu:triggerClose()
-  end
+    -- trigger close on previous menu if exists
+    local size = #self.menu_stack
+    if size > 1 then
+        local prev_menu = self.menu_stack[size - 1]
+        prev_menu:triggerClose()
+    end
 
-  return menu
+    return menu
 end
 
 -- close menu
 -- menu: (optional) menu to close, if nil, will close the current menu
 function GUI.User:closeMenu(menu)
-  if not menu then menu = self:getMenu() end
-
-  if menu and self.menu_stack[menu.stack_index] == menu then -- valid menu
-    menu:triggerClose() -- close event
-    menu:triggerEvent("remove", menu) -- remove event
-
-    local current = (menu.stack_index == #self.menu_stack)
-    if current then -- current client menu, close event
-      vRP.EXT.GUI.remote._closeMenu(self.source)
+    if not menu then
+        menu = self:getMenu()
     end
 
-    -- decrement next menu stack indexes
-    for i=menu.stack_index+1,#self.menu_stack do
-      local nmenu = self.menu_stack[i]
-      nmenu.stack_index = nmenu.stack_index-1
-    end
+    if menu and self.menu_stack[menu.stack_index] == menu then -- valid menu
+        menu:triggerClose() -- close event
+        menu:triggerEvent("remove", menu) -- remove event
 
-    -- remove from stack
-    table.remove(self.menu_stack, menu.stack_index)
+        local current = (menu.stack_index == #self.menu_stack)
+        if current then -- current client menu, close event
+            vRP.EXT.GUI.remote._closeMenu(self.source)
+        end
 
-    -- re-open previous menu
-    if current then
-      self:actualizeMenu()
+        -- decrement next menu stack indexes
+        for i = menu.stack_index + 1, #self.menu_stack do
+            local nmenu = self.menu_stack[i]
+            nmenu.stack_index = nmenu.stack_index - 1
+        end
+
+        -- remove from stack
+        table.remove(self.menu_stack, menu.stack_index)
+
+        -- re-open previous menu
+        if current then
+            self:actualizeMenu()
+        end
     end
-  end
 end
 
 -- close and rebuild current menu (no remove)
 -- menu is rebuilt, listeners are kept
 function GUI.User:actualizeMenu()
-  local menu = self:getMenu()
-  if menu then
-    menu:triggerClose()
-    menu:initialize()
-    vRP.EXT.GUI:buildMenu(menu)
-    vRP.EXT.GUI.remote._openMenu(self.source, menu:serializeNet())
-  end
+    local menu = self:getMenu()
+    if menu then
+        menu:triggerClose()
+        menu:initialize()
+        vRP.EXT.GUI:buildMenu(menu)
+        vRP.EXT.GUI.remote._openMenu(self.source, menu:serializeNet())
+    end
 end
 
 -- close all menus
 function GUI.User:closeMenus()
-  repeat
-    self:closeMenu()
-  until not self:getMenu()
+    repeat
+        self:closeMenu()
+    until not self:getMenu()
 end
 
 -- prompt textual (and multiline) information from player
 -- return entered text
 function GUI.User:prompt(title, default_text)
-  local r = async()
-  self.prompt_r = r
+    local r = async()
+    self.prompt_r = r
 
-  vRP.EXT.GUI.remote._prompt(self.source, title, default_text)
+    vRP.EXT.GUI.remote._prompt(self.source, title, default_text)
 
-  return r:wait()
+    return r:wait()
 end
 
 -- REQUEST
@@ -232,38 +239,41 @@ end
 -- time: request duration in seconds
 -- return true (yes) or false (no)
 function GUI.User:request(text, time)
-  local r = async()
+    local r = async()
 
-  local id = self.request_ids:gen()
-  local request = {r = r, done = false}
-  self.requests[id] = request
+    local id = self.request_ids:gen()
+    local request = {
+        r = r,
+        done = false
+    }
+    self.requests[id] = request
 
-  vRP.EXT.GUI.remote._request(self.source,id,text,time) -- send request to client
+    vRP.EXT.GUI.remote._request(self.source, id, text, time) -- send request to client
 
-  -- end request with a timeout if not already ended
-  SetTimeout(time*1000,function()
-    if not request.done then
-      request.r(false) -- negative response
-      self.request_ids:free(id)
-      self.requests[id] = nil
-    end
-  end)
+    -- end request with a timeout if not already ended
+    SetTimeout(time * 1000, function()
+        if not request.done then
+            request.r(false) -- negative response
+            self.request_ids:free(id)
+            self.requests[id] = nil
+        end
+    end)
 
-  return r:wait()
+    return r:wait()
 end
 
 -- METHODS
 
 function GUI:__construct()
-  vRP.Extension.__construct(self)
+    vRP.Extension.__construct(self)
 
-  self.cfg = module("vrp", "cfg/gui")
-  self.menu_builders = {} -- map of name => callbacks list
+    self.cfg = module("vrp", "cfg/gui")
+    self.menu_builders = {} -- map of name => callbacks list
 
-  self:registerMenuBuilder("main", function(menu)
-    menu.title = lang.common.menu.title()
-    menu.css.header_color = "rgba(0,125,255,0.75)"
-  end)
+    self:registerMenuBuilder("main", function(menu)
+        menu.title = lang.common.menu.title()
+        menu.css.header_color = "rgba(0,125,255,0.75)"
+    end)
 end
 
 -- MENU
@@ -274,36 +284,37 @@ end
 -- name: menu type name
 -- builder(menu): callback to modify the menu
 function GUI:registerMenuBuilder(name, builder)
-  local mbuilders = self.menu_builders[name]
-  if not mbuilders then
-    mbuilders = {}
-    self.menu_builders[name] = mbuilders
-  end
+    local mbuilders = self.menu_builders[name]
+    if not mbuilders then
+        mbuilders = {}
+        self.menu_builders[name] = mbuilders
+    end
 
-  table.insert(mbuilders, builder)
+    table.insert(mbuilders, builder)
 end
 
 -- build a menu
 function GUI:buildMenu(menu)
-  local mbuilders = self.menu_builders[menu.name]
+    local mbuilders = self.menu_builders[menu.name]
 
-  if mbuilders then
-    for _,builder in ipairs(mbuilders) do -- trigger builders
-      builder(menu)
+    if mbuilders then
+        for _, builder in ipairs(mbuilders) do -- trigger builders
+            builder(menu)
+        end
     end
-  end
 end
 
 -- EVENT
 GUI.event = {}
 
 function GUI.event:playerSpawn(user, first_spawn)
-  if first_spawn then
-    -- load additional css using the div api
-    self.remote._setDiv(user.source, "additional_css",".div_additional_css{ display: none; }\n\n"..self.cfg.css,"")
+    if first_spawn then
+        -- load additional css using the div api
+        self.remote._setDiv(user.source, "additional_css", ".div_additional_css{ display: none; }\n\n" .. self.cfg.css,
+            "")
 
-    -- load static menus
-    --[[
+        -- load static menus
+        --[[
     for k,v in pairs(self.cfg.static_menus) do
       local mtype,x,y,z = table.unpack(v)
       local smenu = self.cfg.static_menu_types[mtype]
@@ -332,15 +343,15 @@ function GUI.event:playerSpawn(user, first_spawn)
       end
     end
     --]]
-  end
+    end
 end
 
 function GUI.event:playerLeave(user)
-  user:closeMenus()
+    user:closeMenus()
 end
 
 function GUI.event:characterUnload(user)
-  user:closeMenus()
+    user:closeMenus()
 end
 
 -- TUNNEL
@@ -348,69 +359,69 @@ GUI.tunnel = {}
 
 -- close current menu
 function GUI.tunnel:closeMenu()
-  local user = vRP.users_by_source[source]
+    local user = vRP.users_by_source[source]
 
-  if user and user:isReady() then
-    user:closeMenu()
-  end
+    if user and user:isReady() then
+        user:closeMenu()
+    end
 end
 
 function GUI.tunnel:triggerMenuOption(id, mod)
-  local user = vRP.users_by_source[source]
+    local user = vRP.users_by_source[source]
 
-  if user and user:isReady() then
-    local menu = user:getMenu()
-    if menu then
-      menu:triggerOption(id, mod)
+    if user and user:isReady() then
+        local menu = user:getMenu()
+        if menu then
+            menu:triggerOption(id, mod)
+        end
     end
-  end
 end
 
 function GUI.tunnel:triggerMenuSelect(id)
-  local user = vRP.users_by_source[source]
+    local user = vRP.users_by_source[source]
 
-  if user and user:isReady() then
-    local menu = user:getMenu()
-    if menu then
-      menu:triggerSelect(id)
+    if user and user:isReady() then
+        local menu = user:getMenu()
+        if menu then
+            menu:triggerSelect(id)
+        end
     end
-  end
 end
 
 -- receive prompt result
 function GUI.tunnel:promptResult(text)
-  local user = vRP.users_by_source[source]
-  
-  if user and user:isReady() then
-    local r = user.prompt_r
-    if r then
-      user.prompt_r = nil
-      r(text or "")
+    local user = vRP.users_by_source[source]
+
+    if user and user:isReady() then
+        local r = user.prompt_r
+        if r then
+            user.prompt_r = nil
+            r(text or "")
+        end
     end
-  end
 end
 
 -- receive request result
-function GUI.tunnel:requestResult(id,ok)
-  local user = vRP.users_by_source[source]
+function GUI.tunnel:requestResult(id, ok)
+    local user = vRP.users_by_source[source]
 
-  if user and user:isReady() then
-    local request = user.requests[id]
-    if request then -- end request
-      request.done = true -- set done, the timeout will not call the callback a second time
-      request.r(not not ok) -- callback
-      user.request_ids:free(id)
-      user.requests[id] = nil
+    if user and user:isReady() then
+        local request = user.requests[id]
+        if request then -- end request
+            request.done = true -- set done, the timeout will not call the callback a second time
+            request.r(not not ok) -- callback
+            user.request_ids:free(id)
+            user.requests[id] = nil
+        end
     end
-  end
 end
 
 -- open the general player menu
 function GUI.tunnel:openMainMenu()
-  local user = vRP.users_by_source[source]
-  if user and user:isReady() then
-    user:openMenu("main")
-  end
+    local user = vRP.users_by_source[source]
+    if user and user:isReady() then
+        user:openMenu("main")
+    end
 end
 
 vRP:registerExtension(GUI)

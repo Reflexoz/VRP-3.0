@@ -1,10 +1,11 @@
-*{
+* {
   margin: 0;
   padding: 0;
 }
 
 /* make body full page */
-html, body {
+html,
+body {
   margin: 0;
   height: 100%;
   overflow: hidden;
@@ -16,9 +17,10 @@ html, body {
   font-family: reflexo;
   src: url();
 }
+
 /* menu */
 
-.menu{
+.menu {
   background-color: rgb(0 0 0 / 30%);
   color: white;
   width: 29%;
@@ -30,8 +32,8 @@ html, body {
   margin-left: 40vw;
 }
 
-.menu_description{
-  background-color: rgba(0,0,0,0.75);
+.menu_description {
+  background-color: rgba(0, 0, 0, 0.75);
   color: white;
   position: absolute;
   font-weight: bold;
@@ -40,40 +42,39 @@ html, body {
   max-width: 500px;
 }
 
-.menu h1{
+.menu h1 {
   color: white;
   text-align: center;
   font-size: 1.6em;
   padding: 6px;
 }
 
-.options{
+.options {
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
-.options::-webkit-scrollbar{ 
-  display: none; 
+.options::-webkit-scrollbar {
+  display: none;
 }
 
-.options > div{
+.options>div {
   padding: 6px;
   font-size: 1.3em;
 }
 
-.options .selected{
+.options .selected {
   color: black;
 }
 
 /* progress bar */
-.progressbar{
+.progressbar {
   position: absolute;
 }
 
-.progressbar .inner{
-}
+.progressbar .inner {}
 
-.progressbar .label{
+.progressbar .label {
   position: absolute;
   color: white;
   font-weight: bold;
@@ -82,19 +83,19 @@ html, body {
 }
 
 /* dynamic class progress bar */
-.dprogressbar{
+.dprogressbar {
   position: relative;
   padding: 0;
   margin: 0;
 }
 
-.dprogressbar .inner{
+.dprogressbar .inner {
   height: 100%;
   padding: 0;
   margin: 0;
 }
 
-.dprogressbar .label{
+.dprogressbar .label {
   padding: 0;
   margin: 0;
   position: absolute;
@@ -109,9 +110,9 @@ html, body {
 }
 
 /* wprompt */
-.wprompt{
+.wprompt {
   position: absolute;
-  background-color: rgba(0,0,0,0.75);
+  background-color: rgba(0, 0, 0, 0.75);
   color: white;
   width: 500px;
   height: 200px;
@@ -120,14 +121,14 @@ html, body {
   padding: 5px;
 }
 
-.wprompt h1{
+.wprompt h1 {
   font-size: 1.1em;
 }
 
-.wprompt textarea{
+.wprompt textarea {
   outline: none !important;
-  background-color: rgba(0,0,0,0.75);
-  border: 1px solid rgba(255,255,255,0.30);
+  background-color: rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.30);
   flex: 1;
   color: white;
   width: 100%;
@@ -136,49 +137,49 @@ html, body {
   box-sizing: border-box;
 }
 
-.wprompt textarea:focus{
+.wprompt textarea:focus {
   outline: none !important;
 }
 
-.wprompt .help{
+.wprompt .help {
   font-size: 0.9em;
   font-style: italic;
   padding: 3px;
 }
 
 /* request manager */
-.request_manager{
+.request_manager {
   position: relative;
   top: 50px;
   text-align: center;
 }
 
-.request_manager div{
+.request_manager div {
   margin-top: 10px;
 }
 
-.request_manager div > span{
+.request_manager div>span {
   font-size: 1.2em;
   color: white;
   font-weight: bold;
-  background-color: rgba(0,0,0,0.50);
+  background-color: rgba(0, 0, 0, 0.50);
   padding: 4px;
 }
 
-.request_manager .yes{
+.request_manager .yes {
   padding-left: 15px;
-  color: rgb(0,255,0);
+  color: rgb(0, 255, 0);
   font-size: 1em;
 }
 
-.request_manager .no{
-  color: rgb(255,0,0);
+.request_manager .no {
+  color: rgb(255, 0, 0);
   font-size: 1em;
 }
 
 /* announce */
 
-.announce{
+.announce {
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -196,7 +197,7 @@ html, body {
 
 /* VoIP */
 
-#voice_indicator{
+#voice_indicator {
   position: absolute;
   width: 75px;
   height: 75px;
@@ -206,13 +207,13 @@ html, body {
   display: none;
 }
 
-#voice_indicator.active{
+#voice_indicator.active {
   display: block;
 }
 
 /* Radio */
 
-.radio_display{
+.radio_display {
   position: absolute;
   right: 0;
   top: 15%;
@@ -220,19 +221,18 @@ html, body {
   width: 200px;
 }
 
-.radio_display > div{
+.radio_display>div {
   overflow: hidden;
   margin-top: 3px;
   font-weight: bold;
   border-radius: 8px;
   padding: 5px;
   color: white;
-  background-image: linear-gradient(to bottom, rgba(50,50,50,0.75), rgba(0,0,0,0.75));
+  background-image: linear-gradient(to bottom, rgba(50, 50, 50, 0.75), rgba(0, 0, 0, 0.75));
 }
 
-.radio_display > div > .group{
+.radio_display>div>.group {
   text-decoration: underline;
 }
 
-.radio_display > div > .title{
-}
+.radio_display>div>.title {}
