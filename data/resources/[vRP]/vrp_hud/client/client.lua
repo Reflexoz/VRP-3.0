@@ -53,10 +53,10 @@ AddEventHandler('playerSpawned', function()
 
     CreateThread(function()
         while true do
-            Wait(Config.StatusUpdateInterval)
-                food = newHunger
-                water = newThirst
-                stress = newStress
+            Wait(4000)
+            food = newHunger
+            water = newThirst
+            stress = newStress
         end
     end)
 end)
@@ -92,7 +92,7 @@ CreateThread(function()
             local position = GetEntityCoords(ped)
             local carhealth = GetVehicleBodyHealth(vehiculo) / 10
             local streetName = GetStreetNameFromHashKey(GetStreetNameAtCoord(position.x, position.y, position.z))
-            if Config.MinimapJustInCar then
+            if true then
                 DisplayRadar(true)
             end
             SendNUIMessage({
@@ -106,7 +106,7 @@ CreateThread(function()
                 map = true
             })
         else
-            if Config.MinimapJustInCar then
+            if true then
                 DisplayRadar(false)
                 _sleep = 1000
                 SendNUIMessage({
@@ -157,6 +157,6 @@ RegisterCommand('belt', function()
     end
 end)
 
-RegisterKeyMapping('belt', 'Car Belt', 'keyboard', Config.BeltKey)
-RegisterKeyMapping('offmotor', 'Turn ON/OFF the car', 'keyboard', Config.ONandOFFMotorKey)
+RegisterKeyMapping('belt', 'Car Belt', 'keyboard', 'B')
+RegisterKeyMapping('offmotor', 'Turn ON/OFF the car', 'keyboard', 'Y')
 

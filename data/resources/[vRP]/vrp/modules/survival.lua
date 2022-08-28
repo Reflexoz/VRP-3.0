@@ -6,43 +6,34 @@ end
 
 local Survival = class("Survival", vRP.Extension)
 
-local function getHunger(self)
-    local sdata = self:getUData(user_id, "vRP:datatable")
+local function getHunger(user_id)
+    local data = self:getUData(user_id, "vRP:datatable")
 
-    if sdata then
-        return sdata.hunger
+    if data then
+        return data.hunger
     end
 
     return 0
 end
 
-local function getThirst(self)
-    local sdata = self:getUData(user_id, "vRP:datatable")
+local function getThirst(user_id)
+    local data = self:getUData(user_id, "vRP:datatable")
 
-    if sdata then
-        return sdata.thirst
+    if data then
+        return data.thirst
     end
 
     return 0
 end
 
-local function getStress(self)
-    local sdata = self:getUData(user_id, "vRP:datatable")
+local function getStress(user_id)
+    local data = self:getUData(user_id, "vRP:datatable")
 
-    if sdata then
-        return sdata.stress
+    if data then
+        return data.stress
     end
 
     return 0
-end
-
-local function setHunger(self)
-end
-
-local function setThirst(self)
-end
-
-local function setStress(self)
 end
 
 function Survival:__construct()
@@ -51,7 +42,4 @@ function Survival:__construct()
     getHunger(self)
     getThirst(self)
     getStress(self)
-    setHunger(self)
-    setThirst(self)
-    setStress(self)
 end
