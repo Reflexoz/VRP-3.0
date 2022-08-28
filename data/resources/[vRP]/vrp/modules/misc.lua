@@ -4,11 +4,11 @@ if not vRP.modules.misc then
     return
 end
 
-local Misc = class("Misc", vRP.Extension)
+local Survival = class("Survival", vRP.Extension)
 
-function Misc:__construct()
+function Survival:__construct()
     vRP.Extension.__construct(self)
 
 end
 
-vRP:registerExtension(Misc)
+vRP:registerExtension(Survival)
