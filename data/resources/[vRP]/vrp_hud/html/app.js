@@ -41,14 +41,33 @@ window.addEventListener("message", function (event) {
             } else if (v.vel >= 100) {
                 $('.hideHUD').html(Math.round(v.vel.toFixed(2)))
                 $('.hideHUD').hide()
+<<<<<<< HEAD
+            } else if (v.vel >= 10) {
+                $('.hideHUD').show()
+                $('.hideHUD').html('0')
+            } else if (v.vel >= 0 ) {
+                $('.hideHUD').show()
+                $('.hideHUD').html('000')
+            } 
+ 
+ 
+            
+
+            
+=======
             } else {
                 $('.hideHUD').show()
                 $('.hideHUD').html('00')
             }
+>>>>>>> e157660ee601f16b346f0692a82b4c46a9a76c07
             $('.motorjs').html(Math.round(v.vidav) + '%')
             $('.mapa').fadeIn(100)
             $('.carHUD').fadeIn(100)
             $('.calle').fadeIn(100)
+<<<<<<< HEAD
+            
+=======
+>>>>>>> e157660ee601f16b346f0692a82b4c46a9a76c07
             $('.CarIMG').fadeIn(100)
             break;
 
@@ -65,7 +84,12 @@ window.addEventListener("message", function (event) {
         case "updateStatus":
             $('.UltraHud').show()
             $('.pedOline').html(' ' + v.pall + '/200')
+<<<<<<< HEAD
+
+            
+=======
             $('.pedID').html(' ID: ' + v.pid)
+>>>>>>> e157660ee601f16b346f0692a82b4c46a9a76c07
             vida.set(v.health, true)
             $('.vidajs').html(v.health + '%')
             armor.set(v.armor, true)

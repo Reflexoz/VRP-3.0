@@ -227,14 +227,33 @@ body {
 .calle img {
 
     position: absolute;
+<<<<<<< HEAD
+    bottom: 53.2vw;
+    left: 82.5vw;
+    font-size: 1vw;
+    color: white;
+=======
     width: 2vw;
     height: 2vw;
     bottom: 4.5vw;
     left: 18vw;
+>>>>>>> e157660ee601f16b346f0692a82b4c46a9a76c07
 }
 
 .calle h1 {
 
+<<<<<<< HEAD
+    bottom: 53.2vw;
+    font-size: 1vw;
+    color: white;
+    text-align: center;
+}
+
+.calle h2 {
+    position: absolute;
+    bottom: 54.2vw;
+    left: 84vw;
+=======
     position: absolute;
     bottom: 2.2vw;
     left: 17vw;
@@ -247,6 +266,7 @@ body {
     position: absolute;
     bottom: 1.3vw;
     left: 17vw;
+>>>>>>> e157660ee601f16b346f0692a82b4c46a9a76c07
     font-size: .8vw;
     color: rgba(255, 255, 255, 0.644);
 }
@@ -269,7 +289,11 @@ body {
 .carHUD h1 {
 
     position: absolute;
+<<<<<<< HEAD
+    bottom: 0vw;
+=======
     bottom: 4vw;
+>>>>>>> e157660ee601f16b346f0692a82b4c46a9a76c07
     right: 48vw;
     font-size: 3vw;
     color: white;
@@ -280,7 +304,11 @@ body {
 
     position: absolute;
     bottom: 4.7vw;
+<<<<<<< HEAD
+    right: 46.2vw;
+=======
     right: 48.2vw;
+>>>>>>> e157660ee601f16b346f0692a82b4c46a9a76c07
     font-size: .8vw;
     color: rgb(168, 164, 164);
 }
@@ -290,28 +318,50 @@ body {
     position: absolute;
     width: 1.5vw;
     height: 1.5vw;
+<<<<<<< HEAD
+    bottom: 3vw;
+    right: 46.5vw;
+
+=======
     bottom: 6vw;
     right: 42.8vw;
+>>>>>>> e157660ee601f16b346f0692a82b4c46a9a76c07
 }
 
 .carHUD h3 {
 
     position: absolute;
+<<<<<<< HEAD
+    bottom: 3.9vw;
+    right: 46.5vw;
+    font-size: .6vw;
+    color: rgb(255, 255, 255);
+
+=======
     bottom: 4.7vw;
     right: 42.8vw;
     font-size: .6vw;
     color: rgb(255, 255, 255);
     /* text-shadow: 0px 1px 1px rgb(0, 0, 0); */
+>>>>>>> e157660ee601f16b346f0692a82b4c46a9a76c07
 }
 
 [class="beltjs"] {
 
+<<<<<<< HEAD
+    width: 2vw;
+    height: 2vw;
+    position: absolute;
+    right: 82vw;
+    bottom: 2vw;
+=======
 
     width: 2vw;
     height: 2vw;
     position: absolute;
     right: 53vw;
     bottom: 3vw;
+>>>>>>> e157660ee601f16b346f0692a82b4c46a9a76c07
 }
 
 [class="motorON"] {
@@ -319,8 +369,13 @@ body {
     width: 2vw;
     height: 2vw;
     position: absolute;
+<<<<<<< HEAD
+    right: 82vw;
+    bottom: 4vw;
+=======
     right: 46vw;
     bottom: 3vw;
+>>>>>>> e157660ee601f16b346f0692a82b4c46a9a76c07
 }
 
 [id="EngineBad"] {
@@ -341,10 +396,17 @@ body {
 [class="ammo"] {
     position: absolute;
     right: 1vw;
+<<<<<<< HEAD
+    bottom: 52vw;
+    background: rgb(0, 0, 0);
+    border-radius: 8px;
+    border-right: 0.3vw #4a36ff solid;
+=======
     bottom: 5vw;
     background: rgb(0, 0, 0);
     border-radius: 8px;
     border-right: .3vw #4a36ff solid;
+>>>>>>> e157660ee601f16b346f0692a82b4c46a9a76c07
     background: linear-gradient(83deg, rgba(0, 0, 0, 0) 0%, rgba(73, 73, 73, 0.486) 100%);
     padding-left: 3vw;
     padding-right: 1vw;
@@ -357,9 +419,15 @@ body {
     color: white;
     position: fixed;
     right: 2vw;
+<<<<<<< HEAD
+    bottom: 51.8vw;
+    font-size: .8vw;
+    /* text-shadow: 0px 1px 1px rgb(0 0 0); */
+=======
     bottom: 4.8vw;
     font-size: .8vw;
     /* text-shadow: 0px 1px 1px rgb(0, 0, 0); */
+>>>>>>> e157660ee601f16b346f0692a82b4c46a9a76c07
     font-family: "UltraFont";
 
 }

@@ -158,5 +158,9 @@ RegisterCommand('belt', function()
 end)
 
 RegisterKeyMapping('belt', 'Car Belt', 'keyboard', 'B')
+<<<<<<< HEAD
+RegisterKeyMapping('offmotor', 'Turn ON/OFF the car', 'keyboard', 'Y')
+=======
 RegisterKeyMapping('offmotor', 'Turn ON/OFF the car', 'keyboard', 'Y')
 
+>>>>>>> e157660ee601f16b346f0692a82b4c46a9a76c07
